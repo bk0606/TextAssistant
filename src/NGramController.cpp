@@ -17,7 +17,7 @@ namespace text_assistant {
             for (int i = 2; i < n+2; ++i) {
                 words.push_back(string(row[i]));
             }
-            nGrams.push_back(NGram(atoi(row[0]), atoi(row[1]), words));
+            nGrams.push_back(NGram(atoi(row[1]), words));
         });
 
         mysql_free_result(result);
@@ -63,7 +63,6 @@ namespace text_assistant {
         this->n = n;
         dbController.setupConnection(settings);
         this->tableName = tableName;
-
     }
 
     string NGramController::toString() {

@@ -9,8 +9,8 @@ namespace text_assistant {
     class NGramController {
     public:
         vector<NGram> nGrams;
-
         int n;
+
         MysqlDbController dbController;
         string tableName;
         string grammRow;

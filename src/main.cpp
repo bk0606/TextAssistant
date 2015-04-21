@@ -14,14 +14,14 @@ int main() {
     settings.password = "";
     settings.database = "text_assistant1";
 
-    NGramController nGramController(3, settings);
+    NGramController nGramController(4, settings);
 
-//    nGramController.nGrams.push_back(NGram(3, 120, {"Саша", "Шаша", "Шуша"}));
-//    nGramController.nGrams.push_back(NGram(3, 10, {"Саша", "Лапал", "Нюшу"}));
-//    nGramController.nGrams.push_back(NGram(3, 10, {"Я", "Люблю", "Катю"}));
-//    nGramController.deserializeToDb();
+    nGramController.nGrams.push_back(NGram(120, {"саша", "шаша", "шуша", "шутит"}));
+    nGramController.nGrams.push_back(NGram(10, {"саша", "грязно", "лапал", "нюшу"}));
+    nGramController.nGrams.push_back(NGram(10, {"я", "сильно", "люблю", "катю"}));
+    nGramController.deserializeToDb();
 
-    nGramController.serializeFromDb();
+//    nGramController.serializeFromDb();
 
     cout << "\n" << nGramController.toString();
 

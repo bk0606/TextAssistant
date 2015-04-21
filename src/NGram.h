@@ -15,9 +15,7 @@ namespace text_assistant {
         float probability;
         vector<string> words;
 
-
-        NGram(int n, int frequency, vector<string> words, float probability = 0) :
-            n(n), frequency(frequency), words(words), probability(probability) { }
+        NGram(int frequency, vector<string> words, float probability = 0);
     };
 
 }
