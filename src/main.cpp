@@ -11,7 +11,7 @@ int main() {
     ConnectionSettings settings;
     settings.server = "localhost";
     settings.user = "root";
-    settings.password = "defenderkella";
+    settings.password = "";
     settings.database = "text_assistant1";
 
     NGramController nGramController(3, settings);
