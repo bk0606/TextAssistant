@@ -17,15 +17,13 @@ namespace text_assistant {
 
         vector<NGram>   serializeFromDb();
         void            deserializeToDb();
-        void            createTable();
+        void            createTableIfNotExists();
 
         string          toString();
 
-        NGramController(int n, ConnectionSettings settings, string tableName = "ngrams");
+                        NGramController(int n, ConnectionSettings settings, string tableName = "ngrams");
+        string          intToString(int num);
 
-    private:
-        string          getGramLiteral(int ind);
-        string          generateRows();
     };
 
 }

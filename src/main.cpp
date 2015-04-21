@@ -16,10 +16,12 @@ int main() {
 
     NGramController nGramController(3, settings);
 
-    nGramController.nGrams.push_back(NGram(3, 120, {"Саша", "Шаша", "Шуша"}));
-    nGramController.nGrams.push_back(NGram(3, 10, {"Саша", "Лапал", "Нюшу"}));
+//    nGramController.nGrams.push_back(NGram(3, 120, {"Саша", "Шаша", "Шуша"}));
+//    nGramController.nGrams.push_back(NGram(3, 10, {"Саша", "Лапал", "Нюшу"}));
+//    nGramController.nGrams.push_back(NGram(3, 10, {"Я", "Люблю", "Катю"}));
+//    nGramController.deserializeToDb();
 
-    nGramController.deserializeToDb();
+    nGramController.serializeFromDb();
 
     cout << "\n" << nGramController.toString();
 
