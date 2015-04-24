@@ -1,7 +1,3 @@
-//
-// Created by albert on 21.04.15.
-//
-
 #include <iostream>
 #include "NGramController.h"
 
@@ -79,7 +75,7 @@ namespace text_assistant {
     }
 
     string NGramController::intToString(int num) {
-        char str[50]; // TODO: Care
+        char str[20]; // TODO: Care, may be not enough
         sprintf(str, "%d", num);
         return string(str);
     }

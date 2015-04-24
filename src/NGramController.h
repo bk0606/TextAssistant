@@ -13,7 +13,6 @@ namespace text_assistant {
 
         MysqlDbController dbController;
         string tableName;
-        string grammRow;
 
         vector<NGram>   serializeFromDb();
         void            deserializeToDb();
