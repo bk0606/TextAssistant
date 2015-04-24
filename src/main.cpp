@@ -8,11 +8,9 @@
 #include "utils/TextParser.h"
 #include "tests/NGramControllerTest.h"
 
-string PROJECT_HOME("/home/albert/Dropbox/Code/Cpp/TextAssistant");
-string RESOURCES (PROJECT_HOME + "/resources");
-
 using namespace std;
 using namespace text_assistant;
+
 
 int main(int argc, char** argv)
 {
@@ -24,7 +22,7 @@ int main(int argc, char** argv)
     ConnectionSettings settings;
     settings.server = "localhost";
     settings.user = "root";
-    settings.password = "defenderkella";
+    settings.password = "";
     settings.database = "text_assistant1";
 
     NGramController nGramController(4, settings);
@@ -36,7 +34,7 @@ int main(int argc, char** argv)
 
 //     nGramController.serializeFromDb();
 
-    TextParser::parseFromFile(RESOURCES + "/test_input");
+    TextParser::parseFromFile("/home/albert/Dropbox/Code/Cpp/TextAssistant/resources/test_input");
 
     cout << "\n" << nGramController.toString();
 

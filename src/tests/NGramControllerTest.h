@@ -10,7 +10,7 @@ namespace text_assistant {
         ConnectionSettings settings;
         settings.server = "localhost";
         settings.user = "root";
-        settings.password = "defenderkella";
+        settings.password = "";
         settings.database = "text_assistant1";
 
         NGramController controller(10, settings);
