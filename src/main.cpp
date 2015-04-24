@@ -5,7 +5,7 @@
 #include "database/MysqlDbController.h"
 #include "NGramController.h"
 #include "utils/ArgsParser.h"
-//#include "utils/TextParser.h"
+#include "utils/TextParser.h"
 #include "tests/NGramControllerTest.h"
 
 string PROJECT_HOME("/home/albert/Dropbox/Code/Cpp/TextAssistant");
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
 //     nGramController.serializeFromDb();
 
-//    TextParser::parseFromFile(RESOURCES + "/test_input");
+    TextParser::parseFromFile(RESOURCES + "/test_input");
 
     cout << "\n" << nGramController.toString();
 

@@ -26,6 +26,6 @@ include_directories(/usr/include/mysql/)
 target_link_libraries( ${APP_NAME} mysqlclient )
 target_link_libraries( ${APP_NAME} mysqlcppconn )
 target_link_libraries( ${APP_NAME} ${GTEST_LIBRARIES} pthread )
-# target_link_libraries( ${APP_NAME} boost_regex )
+ target_link_libraries( ${APP_NAME} boost_regex )
 # target_link_libraries( ${APP_NAME} mysqlpp )
 
