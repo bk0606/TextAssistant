@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     ConnectionSettings settings;
     settings.server = "localhost";
     settings.user = "root";
-    settings.password = "defenderkella";
+    settings.password = "";
     settings.database = "text_assistant1";
 
     NGramRepo repo(3, settings);
