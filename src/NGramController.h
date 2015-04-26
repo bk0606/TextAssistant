@@ -19,9 +19,9 @@ namespace text_assistant {
         void            createTableIfNotExists();
 
         string          toString();
+        string          intToString(int num);
 
                         NGramController(int n, ConnectionSettings settings, string tableName = "ngrams");
-        string          intToString(int num);
 
     };
 

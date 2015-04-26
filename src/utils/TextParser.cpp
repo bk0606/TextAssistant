@@ -24,7 +24,4 @@ namespace text_assistant {
         return words;
     }
 
-    vector<string> TextParser::parseFromFile(string fullPath) {
-        return parseFromFile(fullPath.c_str());
-    }
 }

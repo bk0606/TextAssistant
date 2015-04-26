@@ -16,7 +16,6 @@ namespace text_assistant {
     class TextParser {
     public:
         static vector<string>  parseFromFile(const char* fullPath);
-        static vector<string>  parseFromFile(string fullPath);
     };
 
 }
