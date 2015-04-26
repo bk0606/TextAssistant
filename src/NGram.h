@@ -15,7 +15,11 @@ namespace text_assistant {
         float probability;
         vector<string> words;
 
-        NGram(int frequency, vector<string> words, float probability = 0);
+        bool    operator == (const NGram &other) const;
+        bool    operator != (const NGram &other) const;
+
+                NGram(int frequency, vector<string> words, float probability = 0);
+                NGram(int n, int frequency = 1, float probability = 0);
     };
 
 }

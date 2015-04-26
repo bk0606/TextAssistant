@@ -16,9 +16,9 @@ namespace text_assistant {
     public:
         MYSQL*      setupConnection(ConnectionSettings settings);
 
-        MYSQL_RES*  performQuery(const char *sqlQuery);
+        MYSQL_RES*  performQuery(const char *sqlQuery) const;
 
-        void        iterateResult(MYSQL_RES *queryResult, function<void(MYSQL_ROW resultRow)> lambda);
+        void        iterateResult(MYSQL_RES *queryResult, function<void(MYSQL_ROW resultRow)> lambda) const;
 
                     ~MysqlDbController();
     };

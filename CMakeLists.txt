@@ -17,7 +17,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 ### Adding source
 set(SOURCE_FILES src/main.cpp)
-add_executable(${APP_NAME} ${SOURCE_FILES} src/NGram.cpp src/NGram.h src/database/MysqlDbController.cpp src/database/MysqlDbController.h src/database/ConnectionSetting.h src/NGramController.cpp src/NGramController.h src/utils/ArgsParser.cpp src/utils/ArgsParser.h src/tests/NGramControllerTest.h src/utils/TextParser.cpp src/utils/TextParser.h src/database/NGramRepo.cpp src/database/NGramRepo.h)
+add_executable(${APP_NAME} ${SOURCE_FILES} src/NGram.cpp src/NGram.h src/database/MysqlDbController.cpp src/database/MysqlDbController.h src/database/ConnectionSetting.h src/NGramController.cpp src/NGramController.h src/utils/ArgsParser.cpp src/utils/ArgsParser.h src/tests/NGramControllerTest.h src/utils/TextParser.cpp src/utils/TextParser.h src/database/NGramRepo.cpp src/database/NGramRepo.h src/tests/TextParserTests.h)
 
 ### Mysql
 include_directories(/usr/include/mysql/)

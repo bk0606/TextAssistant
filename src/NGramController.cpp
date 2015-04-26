@@ -3,70 +3,36 @@
 
 namespace text_assistant {
 
-    vector<NGram> NGramController::serializeFromDb() {
-        string query = "SELECT * FROM `" + tableName +"`;";
-        MYSQL_RES* result = dbController.performQuery(query.c_str());
-
-        dbController.iterateResult(result, [this](MYSQL_ROW row) {
-            vector<string> words;
-            words.reserve((unsigned long) (n));
-            for (int i = 2; i < n+2; ++i) {
-                words.push_back(string(row[i]));
+    void NGramController::learnOnTextFile(char const *fullPath) {
+        vector<string> words = TextParser::parseFromFile(fullPath);
+        string dot = ".";
+        for (size_t i = 0, len = words.size(); i < len; ++i) {
+            NGram nGram(n);
+            for (size_t j = i; j < (i+n); ++j) {
+                string word = words[j];
+                if (word != dot) {
+                    nGram.words.push_back(word);
+                } else {
+                    break;
+                }
+                if (nGram.words.size() == n) {
+                    long long ind = getIndex(nGram);
+                    if (ind == NOT_FOUND_IND) {
+                        nGrams.push_back(nGram);
+                    } else {
+                        nGrams[ind].frequency += 1;
+                    }
+                }
             }
-            nGrams.push_back(NGram(atoi(row[1]), words));
-        });
-
-        mysql_free_result(result);
-        return nGrams;
-    }
-
-    void NGramController::deserializeToDb() {
-        createTableIfNotExists();
-        string query = "INSERT INTO `" + tableName + "` (frequency, ";
-        for (int i = 1; i < n; ++i) {
-            query += "`" + intToString(i) + "gram`" + ", ";
         }
-        query += "`" + intToString(n) + "gram`" + ") VALUES ";
-
-        unsigned long len = nGrams.size();
-        for (unsigned long ind = 0 ; ind < len; ++ind) {
-            NGram nGram = nGrams[ind];
-            query += "(" + intToString(nGram.frequency) + ", ";
-            for (int k = 0; k < n-1; ++k) {
-                query += "\"" + nGram.words[k] + "\", ";
-            }
-            query += "\"" + nGram.words[n-1] + "\"";
-            query += ind == (len-1) ?  "); " :  "), ";
-        }
-
-        auto result = dbController.performQuery(query.c_str());
-        mysql_free_result(result);
-    }
-
-    void NGramController::createTableIfNotExists() {
-        string query = "CREATE TABLE IF NOT EXISTS `" + tableName + "` (";
-        query += "`id` INT NOT NULL AUTO_INCREMENT, `frequency` INT NULL, ";
-        for (int i = 1; i <= n; ++i) {
-            query += "`" + intToString(i) + "gram`" + " VARCHAR(50) NULL, ";
-        }
-        query += " PRIMARY KEY (`id`));";
-
-        auto result = dbController.performQuery(query.c_str());
-        mysql_free_result(result);
-    }
-
-    NGramController::NGramController(int n, ConnectionSettings settings, string tableName) {
-        this->n = n;
-        dbController.setupConnection(settings);
-        this->tableName = tableName;
     }
 
     string NGramController::toString() {
         string str = "Ngrams in controller:";
-        unsigned long len = nGrams.size();
-        for (unsigned long i = 0; i < len; ++i) {
+        size_t len = nGrams.size();
+        for (size_t i = 0; i < len; ++i) {
             NGram nGram = nGrams[i];
-            str += "\n" + intToString(nGram.frequency) + ", ";
+            str += "\n" + repo.intToString(nGram.frequency) + ", ";
             for (int j = 0; j < n; ++j) {
                 str += nGram.words[j] + ", ";
             }
@@ -74,9 +40,16 @@ namespace text_assistant {
         return str;
     }
 
-    string NGramController::intToString(int num) {
-        char str[20]; // TODO: Care, may be not enough
-        sprintf(str, "%d", num);
-        return string(str);
+    long long NGramController::getIndex(NGram nGram) {
+        for (size_t i = 0, len = nGrams.size(); i < len; ++i) {
+            if (nGram == nGrams[i]) {
+                // long long bcs size_t is unsigned long but we need special value: NOT_FOUND_IND = -1
+                return (long long int) i;
+            }
+        }
+        return NOT_FOUND_IND;
     }
+
+    NGramController::NGramController(const NGramRepo &nGramRepo)
+        : n(nGramRepo.n), repo(nGramRepo) {}
 }

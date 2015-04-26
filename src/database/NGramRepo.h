@@ -7,6 +7,8 @@
 
 namespace text_assistant {
 
+    class NGramController;
+
     class NGramRepo {
     private:
         MysqlDbController dbController;
@@ -14,10 +16,13 @@ namespace text_assistant {
     public:
         int n;
 
-        void        serializeFromDb(NGramController &controller);
-        void        deserializeToDb(const NGramController &controller);
-        void        createTableIfNotExists();
-        string      intToString(int num);
+
+
+        void        serializeFromDb(NGramController &controller) const;
+        void        deserializeToDb(const NGramController &controller) const;
+        void        createTableIfNotExists() const;
+
+        string      intToString(int num) const; // TODO: Move in separate class
 
                     NGramRepo(int n, ConnectionSettings settings, string tableName = "ngrams");
     };

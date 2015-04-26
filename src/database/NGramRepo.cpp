@@ -2,7 +2,7 @@
 
 namespace text_assistant {
 
-    void NGramRepo::serializeFromDb(NGramController &controller) {
+    void NGramRepo::serializeFromDb(NGramController &controller) const {
         string query = "SELECT * FROM `" + tableName +"`;";
         MYSQL_RES* result = dbController.performQuery(query.c_str());
 
@@ -18,7 +18,7 @@ namespace text_assistant {
         mysql_free_result(result);
     }
 
-    void NGramRepo::deserializeToDb(const NGramController &controller) {
+    void NGramRepo::deserializeToDb(const NGramController &controller) const {
         createTableIfNotExists();
         string query = "INSERT INTO `" + tableName + "` (frequency, ";
         for (int i = 1; i < n; ++i) {
@@ -41,7 +41,7 @@ namespace text_assistant {
         mysql_free_result(result);
     }
 
-    void NGramRepo::createTableIfNotExists() {
+    void NGramRepo::createTableIfNotExists() const {
         string query = "CREATE TABLE IF NOT EXISTS `" + tableName + "` (";
         query += "`id` INT NOT NULL AUTO_INCREMENT, `frequency` INT NULL, ";
         for (int i = 1; i <= n; ++i) {
@@ -53,7 +53,7 @@ namespace text_assistant {
         mysql_free_result(result);
     }
 
-    string NGramRepo::intToString(int num) {
+    string NGramRepo::intToString(int num) const {
         char str[20]; // TODO: Care, may be not enough
         sprintf(str, "%d", num);
         return string(str);

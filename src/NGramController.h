@@ -1,27 +1,31 @@
 #ifndef TEXTASSISTANT_NGRAMCONTROLLER_H
 #define TEXTASSISTANT_NGRAMCONTROLLER_H
 
-#include "NGram.h"
 #include "database/MysqlDbController.h"
+#include "database/NGramRepo.h"
+#include "utils/TextParser.h"
+#include "NGram.h"
+
+#define NOT_FOUND_IND -1
 
 namespace text_assistant {
 
+    class NGramRepo;
+
     class NGramController {
+    private:
+        const NGramRepo &repo;
     public:
         vector<NGram> nGrams;
         int n;
 
-        MysqlDbController dbController;
-        string tableName;
-
-        vector<NGram>   serializeFromDb();
-        void            deserializeToDb();
-        void            createTableIfNotExists();
-
+        void            learnOnTextFile(const char* fullPath);
         string          toString();
-        string          intToString(int num);
 
-                        NGramController(int n, ConnectionSettings settings, string tableName = "ngrams");
+                        NGramController(const NGramRepo &nGramRepo);
+
+    private:
+        long long          getIndex(NGram nGram);
 
     };
 

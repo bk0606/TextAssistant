@@ -3,17 +3,20 @@
 
 #include <gtest/gtest.h>
 #include "../NGramController.h"
+#include "../database/NGramRepo.h"
 
 namespace text_assistant {
 
-    TEST (NGramsTest, Equality) {
+    TEST (NGramsTest, EqualityOfN) {
         ConnectionSettings settings;
         settings.server = "localhost";
         settings.user = "root";
         settings.password = "";
         settings.database = "text_assistant1";
 
-        NGramController controller(10, settings);
+        NGramRepo repo(10, settings);
+
+        NGramController controller(repo);
         ASSERT_TRUE (controller.n == 10);
     }
 

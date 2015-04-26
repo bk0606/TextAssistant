@@ -7,19 +7,28 @@ namespace text_assistant {
         file.open (fullPath);
         assert(file.is_open());
 
-        regex punctuationRegexp;
-        punctuationRegexp.imbue(std::locale("ru_RU.utf8"));
-        punctuationRegexp.assign("[,:-]");
+        regex punctuationRegex;
+        punctuationRegex.imbue(std::locale("ru_RU.utf8"));
+        punctuationRegex.assign("[,:-]");
         const string replaceable = "";
+
+        regex dotRegex;
+        dotRegex.imbue(std::locale("ru_RU.utf8"));
+        dotRegex.assign("[.!?]");
 
         vector<string> words;
         string word;
+        string dot = ".";
         while (file >> word)
         {
-            words.push_back(
-                    regex_replace(word, punctuationRegexp, replaceable)
-            );
-             cout << words.back() << '\n'; // TODO: Delete
+            word = regex_replace(word, punctuationRegex, replaceable);
+            if (regex_search(word, dotRegex)) {
+                word = regex_replace(word, dotRegex, replaceable);
+                words.push_back(word);
+                words.push_back(dot);
+            } else {
+                words.push_back(word);
+            }
         }
         return words;
     }

@@ -1,24 +1,19 @@
 #include <iostream>
 #include <mysql_driver.h>
 #include <gtest/gtest.h>
-#include "database/ConnectionSetting.h"
-#include "database/MysqlDbController.h"
-#include "NGramController.h"
+#include "tests/NGramControllerTest.h"
+#include "tests/TextParserTests.h"
+
 #include "utils/ArgsParser.h"
 #include "utils/TextParser.h"
-#include "tests/NGramControllerTest.h"
 
-#include <tbb/tbb.h>
-#include <vector>
+#include "database/ConnectionSetting.h"
+#include "database/MysqlDbController.h"
+#include "database/NGramRepo.h"
+#include "NGramController.h"
 
 using namespace std;
 using namespace text_assistant;
-
-tbb::concurrent_vector<int> my_list;
-
-void addToVect(int i) {
-    my_list.push_back(i);
-}
 
 int main(int argc, char** argv)
 {
@@ -27,34 +22,27 @@ int main(int argc, char** argv)
         return RUN_ALL_TESTS();
     }
 
-//    ConnectionSettings settings;
-//    settings.server = "localhost";
-//    settings.user = "root";
-//    settings.password = "defenderkella";
-//    settings.database = "text_assistant1";
-//
-//    NGramController nGramController(4, settings);
+    ConnectionSettings settings;
+    settings.server = "localhost";
+    settings.user = "root";
+    settings.password = "defenderkella";
+    settings.database = "text_assistant1";
+
+    NGramRepo repo(3, settings);
+
+    NGramController nGramController(repo);
+
+    nGramController.learnOnTextFile("/home/albert/Dropbox/Code/Cpp/TextAssistant/resources/learn_input");
 
 //    nGramController.nGrams.push_back(NGram(120, {"саша", "шаша", "шуша", "шутит"}));
 //    nGramController.nGrams.push_back(NGram(10, {"саша", "грязно", "лапал", "нюшу"}));
 //    nGramController.nGrams.push_back(NGram(10, {"я", "сильно", "люблю", "катю"}));
-//    nGramController.deserializeToDb();
 
-//     nGramController.serializeFromDb();
+//    repo.deserializeToDb(nGramController);
 
-//    cout << "\n" << nGramController.toString();
+//    repo.serializeFromDb(nGramController);
 
-//    TextParser::parseFromFile("/home/albert/Dropbox/Code/Cpp/TextAssistant/resources/test_input");
-
-    const int size = 10000000;
-
-    auto start = std::clock();
-
-    tbb::parallel_for(0, size, [=](int i) {
-        addToVect(i);
-    });
-
-    std::cout << "Time: " << (std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << std::endl;
+    cout << "\n" << nGramController.toString() << "\n";
 
     return EXIT_SUCCESS;
 }

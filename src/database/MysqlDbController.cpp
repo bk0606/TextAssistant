@@ -18,7 +18,7 @@ namespace text_assistant {
         return _connection;
     }
 
-    MYSQL_RES* MysqlDbController::performQuery(const char *sqlQuery) {
+    MYSQL_RES* MysqlDbController::performQuery(const char *sqlQuery) const {
         // send the sqlQuery to the database
         if (mysql_query(_connection, sqlQuery))
         {
@@ -29,7 +29,7 @@ namespace text_assistant {
         return mysql_use_result(_connection);
     }
 
-    void MysqlDbController::iterateResult(MYSQL_RES *queryResult, function<void(MYSQL_ROW resultRow)> lambda) {
+    void MysqlDbController::iterateResult(MYSQL_RES *queryResult, function<void(MYSQL_ROW resultRow)> lambda) const {
         MYSQL_ROW resultRow = mysql_fetch_row(queryResult);
 
         while (resultRow != NULL) {
