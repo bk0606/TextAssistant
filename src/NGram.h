@@ -12,7 +12,7 @@ namespace text_assistant {
     public:
         int n;
         int frequency;
-        float probability;
+        float probability; /* deprecated */
         vector<string> words;
 
         bool    operator == (const NGram &other) const;
